@@ -1,8 +1,6 @@
-import streamlit as st
 import pandas as pd
 from collections import Counter
 from wordcloud import WordCloud
-import spacy
 import emoji
 import altair as alt
 from urlextract import URLExtract
