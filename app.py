@@ -11,6 +11,7 @@ from utils.helpers import (
     fetch_stats, 
     fetch_active_users, 
     get_wordcloud, 
+    most_common_emojis,
     get_timelines,
     timeline_stats,
     get_activity_map,
@@ -141,7 +142,20 @@ def main():
 
 
         # 6. plot metrics on words
-        # removed due to memory issue
+        header = 'Most Common Emojis'
+        table = most_common_emojis(chats, user)
+        st.subheader(header)
+        try:
+            st.altair_chart(table, use_container_width=True)
+
+        except:
+            import random
+            filler = random.choice([
+                            "A picture is worth a thousand words, but couldn't find either",
+                            "Actions speak louder than words, hopefully!"
+                ])
+            st.text(filler)
+
 
         # 7. display timelines
         stats = get_timelines(chats_with_date, user)
