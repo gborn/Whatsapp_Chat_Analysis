@@ -2,6 +2,7 @@ altair==4.1.0
 beautifulsoup4==4.10.0
 emoji==1.6.1
 fire==0.4.0
+lxml==4.7.1
 matplotlib==3.2.2
 nltk==3.2.5
 numerize==0.12
