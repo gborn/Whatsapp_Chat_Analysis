@@ -9,7 +9,8 @@ from urlextract import URLExtract
 import plotly.graph_objects as go
 
 urlextractor = URLExtract()
-nlp = spacy.load('en')
+spacy.cli.download("en")
+nlp = spacy.load('en_core_web_sm')
 
 
 def fetch_messages(df, user):
