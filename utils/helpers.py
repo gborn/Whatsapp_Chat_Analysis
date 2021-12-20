@@ -9,9 +9,6 @@ from urlextract import URLExtract
 import plotly.graph_objects as go
 
 urlextractor = URLExtract()
-spacy.cli.download("en")
-nlp = spacy.load('en_core_web_sm')
-
 
 def fetch_messages(df, user):
     """
@@ -92,60 +89,6 @@ def get_wordcloud(df, user):
     wc = WordCloud(width=700, height=300, min_font_size=12, background_color='white')
     wc = wc.generate(df['message'].str.cat(sep=' '))
     return wc
-
-
-
-
-
-def most_common_words(df, user, n=10):
-    """
-    Tokenize each message, and build list of nouns, verbs, phrases 
-    to return "n" most common words, and emojis
-    """
-    if user.lower() != 'overall':
-        df = df[df.id == user]
-
-    df = df[df.message != '<Media omitted>']
-    df = df[df.message != 'This message was deleted']
-    
-    # tokenize
-    tokens = [word for msg in df.message for word in msg.split()]
-    doc = nlp(' '.join(tokens))
-
-    # filter all tokens that arent stop words or punctuations
-    words = [token.text
-            for token in doc
-            if not token.is_stop and not token.is_punct]
-
-    # filter noun tokens that aren't stop words or punctuations
-    nouns = [token.text
-            for token in doc
-            if (not token.is_stop and
-                not token.is_punct and
-                token.pos_ == "NOUN")]
-
-    # filter verb tokens that aren't stop words or punctuations
-    verbs = [token.text
-            for token in doc
-            if (not token.is_stop and
-                not token.is_punct and
-                token.pos_ == "VERB")]
-
-    # filter emojis
-    emojis = [word for word in words if word in emoji.UNICODE_EMOJI['en']]
-
-    common_nouns = Counter(nouns).most_common(n)
-    common_phrases = Counter(doc.noun_chunks).most_common(n)
-    common_verbs = Counter(verbs).most_common(n)
-    common_emojis = Counter(emojis).most_common(n)
-
-    # create a dataframe and build a barchart
-    def to_barchart(table):
-        df = pd.DataFrame(table)
-        df = df.rename(columns={0: 'Phrases', 1:'Count'})
-        return _get_barchart(df, 'Count','Phrases', 'Phrases', 'Count')
-
-    return to_barchart(common_nouns), to_barchart(common_verbs), to_barchart(common_emojis)
 
 
 

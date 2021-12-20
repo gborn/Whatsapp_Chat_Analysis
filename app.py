@@ -11,7 +11,6 @@ from utils.helpers import (
     fetch_stats, 
     fetch_active_users, 
     get_wordcloud, 
-    most_common_words,
     get_timelines,
     timeline_stats,
     get_activity_map,
@@ -142,20 +141,7 @@ def main():
 
 
         # 6. plot metrics on words
-        headers = ['Most Common Nouns', 'Most Common Verbs', 'Most Common Emojis']
-        for header, column, table in zip(headers, st.columns(len(headers)), most_common_words(chats, user)): 
-            with column:
-                st.subheader(header)
-                try:
-                        st.altair_chart(table, use_container_width=True)
-                except:
-                    import random
-                    filler = random.choice([
-                                    "A picture is worth a thousand words, but couldn't find either",
-                                    "Actions speak louder than words, hopefully!"
-                        ])
-                    st.text(filler)
-
+        # removed due to memory issue
 
         # 7. display timelines
         stats = get_timelines(chats_with_date, user)
