@@ -3,12 +3,12 @@ import re
 from bs4 import BeautifulSoup
 from nltk.stem.wordnet import WordNetLemmatizer
 import nltk
-from nltk.sentiment.vader import SentimentIntensityAnalyzer
 from wordcloud import WordCloud
 
-nltk.download('vader_lexicon')
-wnl = WordNetLemmatizer()
 nltk.download('wordnet')
+
+global wnl
+wnl = WordNetLemmatizer()
 
 # list of custom stopwords
 stopwords= set(['br', 'the', 'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', "you're", "you've",\
@@ -64,7 +64,7 @@ def preprocess_text(sentence:str):
     #list of stop words: https://gist.github.com/sebleier/554280
     sentence = ' '.join(wnl.lemmatize(word.lower()) for word in sentence.
     split() if word.lower() not in stopwords)
-    
+
     return sentence
 
 def get_topics(df):
@@ -95,4 +95,6 @@ def get_topics(df):
         wc = wc.generate(' '.join(topic))
         clouds.append(wc)
 
+    del model
+    del documents
     return clouds

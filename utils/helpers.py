@@ -91,6 +91,39 @@ def get_wordcloud(df, user):
 
 
 
+
+def most_common_emojis(df, user, n=10):
+    """
+    Tokenize each message, and build list of nouns, verbs, phrases 
+    to return "n" most common words, and emojis
+    """
+    if user.lower() != 'overall':
+        df = df[df.id == user]
+
+    df = df[df.message != '<Media omitted>']
+    df = df[df.message != 'This message was deleted']
+    
+    # tokenize
+    tokens = [word for msg in df.message for word in msg.split()]
+
+    # filter emojis
+    emojis = [word for word in tokens if word in emoji.UNICODE_EMOJI['en']]
+    common_emojis = Counter(emojis).most_common(n)
+    del emojis
+ 
+    # create a dataframe and build a barchart
+    def to_barchart(table):
+        df = pd.DataFrame(table)
+        df = df.rename(columns={0: 'Phrases', 1:'Count'})
+        chart = _get_barchart(df, 'Count','Phrases', 'Phrases', 'Count')
+        del df
+        return chart
+
+    return  to_barchart(common_emojis)
+
+
+
+
 def _get_barchart(df, x, y, color, label):
     """
     helper function to build a barchart
