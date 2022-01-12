@@ -9,7 +9,8 @@ Project is deployed in heroku at [https://chatresults.herokuapp.com/](https://ch
 Get a glimpse of overall conversations and summary metrics, or select particular group members to see their conversation statistics.
 ![figures/overall_analysis.png](figures/overall_analysis.png)
 
-Visualize when members are most active.
+Visualize when members are most active
+
 ![figures/activity_map.png](figures/activity_map.png)
 
 Visualize most used emojis, and they evolve over time
