@@ -1,6 +1,6 @@
 # Topic Modelling and Visualization of WhatsApp Conversations
 
-A web app to visualize metrics of any one-to-one and group conversations in WhatsApp. To get started, export a WhatsApp conversation from your phone, and upload it in the app.
+A web app to visualize various metrics of one-to-one or group conversations of WhatsApp chats. To get started, export a WhatsApp conversation from your phone, and upload it in the app.
 
 ## Deployment
 Project is deployed in heroku at [https://chatresults.herokuapp.com/](https://chatresults.herokuapp.com/)
